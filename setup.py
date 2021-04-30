@@ -12,12 +12,6 @@ URL = 'https://github.com/shubhodeep9/pipsearch'
 EMAIL = 'Shubhodeep Mukherjee'
 AUTHOR = 'shubhodeep9@gmail.com'
 
-# What packages are required for this module to be executed?
-REQUIRED = [
-    'pip',
-    'beautifulsoup4'
-]
-
 # Import the README and use it as the long-description.
 # This will only work if 'README.rst' is present in your MANIFEST.in file!
 with open('README.md', encoding='utf-8') as f:
@@ -34,7 +28,9 @@ setup(
     author_email=EMAIL,
     url=URL,
     packages=find_packages(exclude=('tests',)),
-    install_requires=REQUIRED,
+    install_requires=[
+        'beautifulsoup4'
+    ],
     extras_require={
         'dev': [
             'flake8',
