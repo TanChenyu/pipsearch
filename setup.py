@@ -15,7 +15,7 @@ AUTHOR = 'shubhodeep9@gmail.com'
 # What packages are required for this module to be executed?
 REQUIRED = [
     'pip',
-    'setuptools'
+    'beautifulsoup4'
 ]
 
 # Import the README and use it as the long-description.
