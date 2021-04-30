@@ -1,9 +1,9 @@
 #! /usr/bin/python
 """This is the main script containing function definitons for scraping
 relevant PyPI data."""
-from __future__ import absolute_import, division, print_function
+from __future__ import absolute_import, print_function
 
-import requests
+from pip._vendor import requests
 from bs4 import BeautifulSoup
 
 
