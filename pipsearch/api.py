@@ -6,11 +6,13 @@ from __future__ import absolute_import, print_function
 from pip._vendor import requests
 from bs4 import BeautifulSoup
 
+URL = "https://pypi.org/search"
+DOMAIN = 'https://pypi.org'
 
-def search(term: str, limit=100: int) -> list:
+def search(term, limit=100):
     """Search a package in the pypi repositories
     """
-    def get_packages(soup) -> bool:
+    def get_packages(soup):
         nonlocal packagenum
 
         packagestable = soup.find("ul", {"aria-label": "Search results"})
@@ -20,7 +22,7 @@ def search(term: str, limit=100: int) -> list:
         for package in packagerows[:limit]:
             packagedata = {
                 'name': package.find(class_="package-snippet__name").text,
-                'link': 'https://pypi.org' + package.find('a')['href'],
+                'link': ''.join((DOMAIN, package.find('a')['href'])),
                 'version': package.find(class_="package-snippet__version").text,
                 'description': package.find(class_="package-snippet__description").text
             }
@@ -35,7 +37,7 @@ def search(term: str, limit=100: int) -> list:
 
     # Get the page number
     soup = BeautifulSoup(requests.get(
-                "https://pypi.org/search",
+                URL,
                 params={'q': term}
             ).text,"html.parser")
     pn = int(soup.find_all(class_="button button-group__button")[-2].text)
@@ -45,7 +47,7 @@ def search(term: str, limit=100: int) -> list:
     # Concatinating the results from splitting will lead to good results
     for i in range(2, pn+1):
         soup = BeautifulSoup(requests.get(
-                "https://pypi.org/search",
+                URL,
                 params={'q': term, 'page': i}
             ).text, 'html.parser')
         # Verify that sufficient packages have been searched
